@@ -1,0 +1,58 @@
+﻿# Secrets and environment
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+*.log
+
+# User uploads and generated media
+media/*
+!media/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Packaging
+build/
+dist/
+*.egg-info/
+
+# Local backups
+*.zip
+*.tar
+*.tar.gz
+*.sql
+backup*/
+backups/
+
+# Temporary files
+*.tmp
+*.temp
+~$*
