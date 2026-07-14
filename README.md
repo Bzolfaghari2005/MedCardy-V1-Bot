@@ -1,6 +1,14 @@
-# MedCardy Bot MVP
+# MedCardy Bot V1
 
 پلتفرم آموزش پزشکی فارسی‌زبان با تمرکز بر تلگرام که جزوات دانشگاهی را به دوره‌های پادکست تبدیل می‌کند.
+
+## قابلیت‌های اصلی
+
+- فروش و تحویل دوره‌های صوتی پزشکی در تلگرام
+- ثبت سفارش پادکست به‌صورت انفرادی و گروهی
+- پرداخت آنلاین زیبال، پرداخت با کیف پول و ثبت فیش بانکی
+- پنل مدیریت Django برای کاربران، محتوا، سفارش‌ها و پیام‌های ربات
+- علاقه‌مندی‌ها، پنل شخصی کاربر و اعلان وضعیت سفارش
 
 ## پشته فناوری
 
@@ -34,7 +42,8 @@ medcardy_bot/
 
 ## دیپلوی و انتشار
 
-راهنمای کامل دیپلوی روی سرور (SSL، Nginx، systemd، زیبال پروداکشن): **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)**  
+راهنمای کامل دیپلوی روی سرور (SSL، Nginx، systemd، زیبال پروداکشن): **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)**
+
 بخش مختص تلگرام: **[TELEGRAM_DEPLOY_GUIDE.md](TELEGRAM_DEPLOY_GUIDE.md)**
 
 ---
@@ -63,7 +72,7 @@ pip install -r requirements.txt
 
 ```sql
 CREATE DATABASE medcardy;
-CREATE USER medcardy_user WITH PASSWORD 'medcardymedcardy20252025';
+CREATE USER medcardy_user WITH PASSWORD 'choose-a-strong-unique-password';
 GRANT ALL PRIVILEGES ON DATABASE medcardy TO medcardy_user;
 ```
 
@@ -280,6 +289,16 @@ SITE_BASE_URL=https://your-ngrok-url.ngrok.io
 
 ---
 
+## امنیت
+
+- فایل `.env` را commit نکنید؛ فقط `.env.example` باید در مخزن باشد.
+- برای محیط production از `DEBUG=False`، کلید محرمانه تصادفی و رمز پایگاه داده قوی استفاده کنید.
+- توکن ربات، شناسه مرچنت و اطلاعات کاربران را در issue، log یا اسکرین‌شات عمومی منتشر نکنید.
+
+## مجوز
+
+این پروژه تحت مجوز [MIT](LICENSE) منتشر شده است.
+
 ## توسعه آینده
 
 معماری برای یکپارچه‌سازی با وب‌سایت طراحی شده است:
@@ -287,5 +306,3 @@ SITE_BASE_URL=https://your-ngrok-url.ngrok.io
 - لایه سرویس از هندلرهای ربات جدا است
 - سرویس پرداخت هر کانالی را پشتیبانی می‌کند (زیبال، کیف پول، درگاه‌های آینده)
 - پنل ادمین مستقل از ربات کار می‌کند
-#   M e d C a r d y - B o t - V 1  
- 
