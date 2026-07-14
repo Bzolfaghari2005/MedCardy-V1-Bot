@@ -2,7 +2,7 @@
 # Usage:
 #   .\scripts\database\psql.ps1
 #   .\scripts\database\psql.ps1 -Database medcardy
-#   .\scripts\database\psql.ps1 -File scripts\database\setup_medcardy.sql
+#   .\scripts\database\psql.ps1 -File path\to\query.sql
 
 param(
     [string]$User = "",

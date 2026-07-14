@@ -21,7 +21,6 @@ C:\Program Files\PostgreSQL\16\bin\psql.exe
 ```powershell
 .\scripts\database\psql.ps1
 .\scripts\database\psql.ps1 -Database medcardy
-.\scripts\database\psql.ps1 -File scripts\database\setup_medcardy.sql
 ```
 
 ### ۲) مسیر کامل
@@ -78,14 +77,19 @@ DATABASE_URL=postgres://postgres:postgres@localhost:5432/medcardy
 
 ### گزینه B — کاربر اختصاصی `medcardy_user` (نزدیک به پروداکشن)
 
-```powershell
-.\scripts\database\psql.ps1 -File scripts\database\setup_medcardy.sql
+پس از ورود به `psql` با کاربر `postgres`، دستورات زیر را با یک رمز قوی و یکتا اجرا کنید:
+
+```sql
+CREATE USER medcardy_user WITH PASSWORD 'choose-a-strong-unique-password';
+CREATE DATABASE medcardy OWNER medcardy_user;
+\connect medcardy
+GRANT ALL ON SCHEMA public TO medcardy_user;
 ```
 
 سپس در `.env`:
 
 ```env
-DATABASE_URL=postgres://medcardy_user:medcardymedcardy20252025@localhost:5432/medcardy
+DATABASE_URL=postgres://medcardy_user:your_password@localhost:5432/medcardy
 ```
 
 ---
@@ -123,13 +127,10 @@ python manage.py runserver
 
 ---
 
-## فایل‌های SQL پروژه
+## ابزار دیتابیس پروژه
 
 | فایل | کاربرد |
 |------|--------|
-| `scripts/database/setup_medcardy.sql` | ساخت دیتابیس + کاربر + دسترسی‌ها |
-| `scripts/database/common_queries.sql` | کوئری‌های روزمره (کاربران، سفارش، کیف پول) |
-| `scripts/database/reset_medcardy.sql` | پاک کردن کامل دیتابیس (فقط توسعه) |
 | `scripts/database/psql.ps1` | اجرای psql بدون PATH |
 
 ---
@@ -147,18 +148,14 @@ python manage.py runserver
 \q
 ```
 
-بقیه کوئری‌ها در `scripts/database/common_queries.sql`.
-
----
-
 ## خطاهای رایج
 
 | خطا | علت احتمالی | راه‌حل |
 |-----|-------------|--------|
 | `psql is not recognized` | PATH تنظیم نیست | از `psql.ps1` یا مسیر کامل استفاده کنید |
 | `password authentication failed` | رمز اشتباه در `.env` | رمز نصب PostgreSQL را در `DATABASE_URL` بگذارید |
-| `database "medcardy" does not exist` | دیتابیس ساخته نشده | `setup_medcardy.sql` یا `CREATE DATABASE medcardy` |
-| `permission denied for schema public` | دسترسی کاربر کم است | بخش GRANT در `setup_medcardy.sql` را اجرا کنید |
+| `database "medcardy" does not exist` | دیتابیس ساخته نشده | `CREATE DATABASE medcardy` را اجرا کنید |
+| `permission denied for schema public` | دسترسی کاربر کم است | `GRANT ALL ON SCHEMA public TO medcardy_user` را اجرا کنید |
 | `connection refused` | سرویس PostgreSQL خاموش است | Services → `postgresql-x64-16` → Start |
 | `migrate` خطا می‌دهد | دیتابیس/کاربر اشتباه | `DATABASE_URL` را با psql تست کنید |
 

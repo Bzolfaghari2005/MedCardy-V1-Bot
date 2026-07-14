@@ -65,11 +65,6 @@ pip install -r requirements.txt
 
 راهنمای کامل ویندوز + دستورات پرکاربرد: **[DATABASE_GUIDE.md](DATABASE_GUIDE.md)**
 
-```powershell
-# سریع (بدون نیاز به PATH)
-.\scripts\database\psql.ps1 -File scripts\database\setup_medcardy.sql
-```
-
 ```sql
 CREATE DATABASE medcardy;
 CREATE USER medcardy_user WITH PASSWORD 'choose-a-strong-unique-password';
@@ -87,6 +82,7 @@ cp .env.example .env
 ```env
 DEBUG=True
 SECRET_KEY=your-very-long-secret-key
+ALLOWED_HOSTS=localhost,127.0.0.1
 
 DATABASE_URL=postgres://medcardy_user:your_password@localhost:5432/medcardy
 

@@ -497,16 +497,19 @@ ADMIN_TELEGRAM_IDS=123456789,987654321
 
 راهنمای کامل: **[DATABASE_GUIDE.md](DATABASE_GUIDE.md)**
 
-**روش سریع با اسکریپت پروژه:**
+با کاربر `postgres` وارد `psql` شوید و یک کاربر اختصاصی با رمز قوی بسازید:
 
-```powershell
-.\scripts\database\psql.ps1 -File scripts\database\setup_medcardy.sql
+```sql
+CREATE USER medcardy_user WITH PASSWORD 'choose-a-strong-unique-password';
+CREATE DATABASE medcardy OWNER medcardy_user;
+\connect medcardy
+GRANT ALL ON SCHEMA public TO medcardy_user;
 ```
 
 سپس در `.env`:
 
 ```env
-DATABASE_URL=postgres://medcardy_user:medcardymedcardy20252025@localhost:5432/medcardy
+DATABASE_URL=postgres://medcardy_user:your_password@localhost:5432/medcardy
 ```
 
 > برای توسعه سریع می‌توانید از کاربر `postgres` هم استفاده کنید — جزئیات در DATABASE_GUIDE.
